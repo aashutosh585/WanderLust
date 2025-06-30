@@ -1,0 +1,57 @@
+<% layout("/layouts/boilerplate") %>
+
+    <br><br>
+    <div class="row">
+        <div class="col-8 offset-2">
+    <h3>Create a  New Listing</h3>
+    <form 
+        action="/listings" 
+        method="post" 
+        class="needs-validation" 
+        novalidate 
+        enctype="multipart/form-data"
+    >
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control"  placeholder="Add a catchy title" name="listing[title]" required>
+            <div class="valid-feedback">Title looks good</div>
+        </div >
+        <div class="mb-3">
+            <label for="description" class="form-label">description</label>
+            <textarea name="listing[description]" required class="form-control" placeholder="enter description]"></textarea>
+            <div class="invalid-feedback">Please enter shot Description</div>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload Listing image</label>
+            <input type="file" class="form-control"  name="listing[image]" required>
+        </div>
+        
+        <div class="row">
+            <div class="mb-3 col-md-4">
+                <label for="price" class="form-label">price</label>
+                <input  class="form-control" placeholder="1200" name="listing[price]" >
+                <div class="invalid-feedback">Please enter a valid price</div>
+            </div>
+            <div class="mb-3 col-md-8">
+                <label for="country" class="form-label">country</label>
+                <input type="text" required class="form-control" placeholder="India" name="listing[country]">
+                <div class="invalid-feedback">Please enter country name</div>
+
+            </div>
+            
+        </div>
+        <div class="mb-3 ">
+            <label for="location" class="form-label">location</label>
+            <input type="text" class="form-control" placeholder="Jaipur, Rajasthan" required name="listing[location]">
+            <div class="invalid-feedback">Location should be valid</div>
+        </div>
+        <br><br>
+        <button class="btn btn-dark add-btn">ADD</button>
+        
+    </form>
+</div>
+</div>
+<br><br>
+    
+
