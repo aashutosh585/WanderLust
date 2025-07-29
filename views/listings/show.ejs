@@ -1,15 +1,25 @@
 <% layout("/layouts/boilerplate") %>
 
 <div class="row mt-3">
-  <div class="col-8 offset-3">
+  <div class="col-lg-8 col-md-10 col-sm-12 offset-lg-2 offset-md-1">
     <h3><b> <%= listing.title %></b> <br /></h3>
   </div>
-  <div class="card col-6 offset-3 show-card listing-card">
-    <img
-      src="<%= listing.image.url %>"
-      class="card-img-top show-img"
-      alt="listing_image"
-    />
+  <div class="card col-lg-6 col-md-8 col-sm-10 col-12 offset-lg-3 offset-md-2 offset-sm-1 show-card listing-card">
+    <div class="position-relative">
+      <img
+        src="<%= listing.image.url %>"
+        class="card-img-top show-img"
+        alt="listing_image"
+      />
+      <div class="position-absolute top-0 start-0 m-2">
+        <span
+          class="badge bg-dark bg-opacity-75 text-white px-2 py-1"
+          style="font-size: 0.75rem; border-radius: 0.375rem"
+        >
+          <%= listing.category || 'Trending' %>
+        </span>
+      </div>
+    </div>
     <div class="card-body">
       <p class="card-text">
         <b>Owner By:</b> <i><%= listing.owner.username %></i>
@@ -27,21 +37,21 @@
 
   <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
 
-  <div class="btns">
+  <div class="btns d-flex flex-column flex-md-row gap-2">
     <a
       href="/listings/<%= listing._id %>/edit"
-      class="btn btn-dark col-1 offset-3 edit-btn"
+      class="btn btn-dark col-lg-1 col-md-2 col-sm-3 col-4 offset-lg-3 offset-md-2 offset-sm-1 edit-btn"
       >Edit</a
     >
 
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="post">
-      <button class="btn btn-dark offset-5">Delete</button>
+    <form action="/listings/<%= listing._id %>?_method=DELETE" method="post" class="d-inline">
+      <button class="btn btn-dark col-lg-1 col-md-2 col-sm-3 col-4">Delete</button>
     </form>
   </div>
 </div>
 <% } %>
 
-<div class="col-8 offset-3 mb-3">
+<div class="col-lg-8 col-md-10 col-sm-12 col-12 offset-lg-2 offset-md-1 mb-3">
   <hr />
   <% if (currUser) { %>
   <h4>Leave a Review</h4>
@@ -62,7 +72,6 @@
           value="0"
           checked
           aria-label="No rating."
-
         />
         <input type="radio" id="first-rate1" name="review[rating]" value="1" />
         <label for="first-rate1" title="Terrible">1 star</label>
@@ -94,16 +103,27 @@
   <hr />
   <% } %>
 
-  <p><b>All Reviews</b></p>
+  <div class="d-flex align-items-center mb-3">
+    <h5 class="mb-0 me-2"><b>All Reviews</b></h5>
+    <% if (listing.reviews && listing.reviews.length > 0) { %>
+    <span class="badge bg-primary rounded-pill"
+      ><%= listing.reviews.length %></span
+    >
+    <% } else { %>
+    <span class="badge bg-secondary rounded-pill">0</span>
+    <% } %>
+  </div>
+
   <div class="row">
     <% for(review of listing.reviews){ %>
-    <div class="card col-5 mb-3 ms-3">
+    <div class="card col-lg-5 col-md-6 col-sm-12 col-12 mb-3 ms-2">
       <div class="card-body">
         <h5 class="card-title">@<%= review.author.username %></h5>
-         <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
+        <p
+          class="starability-result card-text"
+          data-rating="<%= review.rating %>"
+        ></p>
         <p class="card-text"><%= review.comment %></p>
-
-       
       </div>
       <form
         action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"

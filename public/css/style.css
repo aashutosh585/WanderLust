@@ -35,33 +35,59 @@ body{
 .f-info-links a{
 	text-decoration: none;
 	color: #222222;
+	margin: 0 0.5rem;
 }
 
 .f-info-links a:hover{
 	text-decoration: underline;
 }
 
-.f-info-links ,.f-info-brand,.f-info-socials{
+.f-info-links, .f-info-brand, .f-info-socials{
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 0.5rem 0;
 }
 
 .f-info-socials i{
 	font-size: 1.2rem;
-	margin-right: 1rem;
+	margin: 0 0.5rem;
+	cursor: pointer;
+	transition: color 0.3s ease;
 }
 
+.f-info-socials i:hover{
+	color: #fe424d;
+}
 
 .f-info{
 	text-align: center;
-	height: 8rem;
+	min-height: 8rem;
 	background-color: #ebebeb;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	justify-content: center;
-	align-items: space-evenly;
+	align-items: center;
+	padding: 1rem;
+	margin-top: auto;
+}
+
+/* Responsive footer */
+@media (max-width: 768px) {
+	.f-info{
+		min-height: 6rem;
+		padding: 0.5rem;
+	}
+	
+	.f-info-socials i{
+		font-size: 1rem;
+		margin: 0 0.3rem;
+	}
+	
+	.f-info-brand{
+		font-size: 0.9rem;
+	}
 }
 
 /* cards */
@@ -73,12 +99,30 @@ body{
 	border-radius: 1rem !important;
 	width: 100% !important;
 	object-fit:cover !important ;
+	height: 200px;
 }
 .card-body{
 	padding: 0 !important;
 }
 .card-text p{
 	font-weight: 400;
+}
+
+/* Responsive card adjustments */
+@media (max-width: 768px) {
+	.card-img-top{
+		height: 180px;
+	}
+	
+	.listing-card{
+		margin-bottom: 1.5rem;
+	}
+}
+
+@media (max-width: 576px) {
+	.card-img-top{
+		height: 160px;
+	}
 }
 
 .listing-link{
@@ -117,13 +161,45 @@ body{
 /* show Page */
 .show-img{
 	height: 30vh;
+	width: 100%;
+	object-fit: cover;
 }
 
 .btns{
 	display: flex;
-	   
+	gap: 1rem;
 }
+
 .show-card{
 	padding-left: 0px;
 	padding-right: 0px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+	.show-img{
+		height: 25vh;
+	}
+}
+
+@media (max-width: 768px) {
+	.show-img{
+		height: 20vh;
+	}
+	
+	.btns{
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	.btns .btn{
+		width: 100%;
+		max-width: 200px;
+	}
+}
+
+@media (max-width: 576px) {
+	.show-img{
+		height: 18vh;
+	}
 }

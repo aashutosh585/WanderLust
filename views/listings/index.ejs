@@ -11,10 +11,16 @@
         margin-right: 2rem;
         margin-top: 2rem;
         opacity: 0.7;
+        transition: opacity 0.3s ease;
     }
     .filter:hover{
         opacity: 1;
         cursor:pointer ;
+    }
+    .filter.active-filter{
+        opacity: 1;
+        border-bottom: 2px solid #fe424d;
+        padding-bottom: 0.5rem;
     }
     .filter p{
         font-size: 0.8rem;
@@ -30,54 +36,56 @@
         margin-left: 2 rem;
         display: flex;
         align-items: center;
-
     }
-
 </style>
 
 
 <div id="filters">
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'All' ? 'active-filter' : '' %>" onclick="filterByCategory('All')">
+        <div><i class="fa-solid fa-list"></i></div>
+        <p>All</p>
+    </div>
+    <div class="filter <%= selectedCategory === 'Trending' ? 'active-filter' : '' %>" onclick="filterByCategory('Trending')">
         <div><i class="fa-solid fa-fire"></i></div>
         <p>Trending</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Rooms' ? 'active-filter' : '' %>" onclick="filterByCategory('Rooms')">
        <div> <i class="fa-solid fa-bed"></i></div>
         <p>Rooms</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Iconic cities' ? 'active-filter' : '' %>" onclick="filterByCategory('Iconic cities')">
        <div><i class="fa-solid fa-mountain-city"></i></div>
         <p>Iconic cities</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Hiking' ? 'active-filter' : '' %>" onclick="filterByCategory('Hiking')">
        <div><i class="fa-solid fa-person-hiking"></i></i></div>
         <p>Hiking</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Mountains' ? 'active-filter' : '' %>" onclick="filterByCategory('Mountains')">
        <div> <i class="fa-solid fa-mountain-sun"></i></div>
         <p>Mountains</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Castles' ? 'active-filter' : '' %>" onclick="filterByCategory('Castles')">
        <div><i class="fa-brands fa-fort-awesome"></i></div>
         <p>Castles</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Amazing Pools' ? 'active-filter' : '' %>" onclick="filterByCategory('Amazing Pools')">
        <div><i class="fa-solid fa-person-swimming"></i></div>
         <p>Amazing Pools</p>
     </div>
-     <div class="filter">
+     <div class="filter <%= selectedCategory === 'Camping' ? 'active-filter' : '' %>" onclick="filterByCategory('Camping')">
        <div><i class="fa-solid fa-campground"></i></div>
         <p>Camping</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Farms' ? 'active-filter' : '' %>" onclick="filterByCategory('Farms')">
        <div><i class="fa-solid fa-tractor"></i></div>
         <p>Farms</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Domes' ? 'active-filter' : '' %>" onclick="filterByCategory('Domes')">
        <div><i class="fa-solid fa-igloo"></i></div>
         <p>Domes</p>
     </div>
-    <div class="filter">
+    <div class="filter <%= selectedCategory === 'Boats' ? 'active-filter' : '' %>" onclick="filterByCategory('Boats')">
        <div><i class="fa-solid fa-ship"></i></div>
         <p>Boats</p>
     </div>
@@ -96,16 +104,23 @@
   <% for(let listing of allListings){ %>
   <a href="/listings/<%= listing._id %>" class="listing-link">
     <div class="card col listing-card">
-      <img
-        src="<%= listing.image.url %>"
-        style="height: 20rem"
-        class="card-img-top"
-        alt="listing"
-      />
-      <div class="card-img-overlay">abs</div>
+      <div class="position-relative">
+        <img
+          src="<%= listing.image.url %>"
+          style="height: 20rem"
+          class="card-img-top"
+          alt="listing"
+        />
+        <div class="position-absolute top-0 start-0 m-2">
+          <span class="badge bg-dark bg-opacity-75 text-white px-2 py-1" style="font-size: 0.7rem; border-radius: 0.375rem;">
+            <%= listing.category || 'Trending' %>
+          </span>
+        </div>
+      </div>
       <div class="card-body">
         <p class="card-text">
-          <b><%= listing.title %></b> <br />
+          <b><%= listing.title %></b> 
+          <br />
           &#8377;<%= typeof listing.price === 'number' ?
           listing.price.toLocaleString("en-IN") : listing.price %>/Night
           <i class="tax-info">&nbsp; &nbsp; + 18% GST</i>
@@ -127,7 +142,14 @@
             } else{
                 info.style.display = "none";
             }
-            
         }
     });
+
+    function filterByCategory(category) {
+        if (category === 'All') {
+            window.location.href = '/listings';
+        } else {
+            window.location.href = `/listings?category=${encodeURIComponent(category)}`;
+        }
+    }
 </script>

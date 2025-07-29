@@ -27,6 +27,17 @@
             <input type="file" class="form-control"  name="listing[image]" required>
         </div>
         
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="listing[category]" class="form-control" required>
+                <option value="">Select a category</option>
+                <% for(let category of categories) { %>
+                    <option value="<%= category %>"><%= category %></option>
+                <% } %>
+            </select>
+            <div class="invalid-feedback">Please select a category</div>
+        </div>
+        
         <div class="row">
             <div class="mb-3 col-md-4">
                 <label for="price" class="form-label">price</label>

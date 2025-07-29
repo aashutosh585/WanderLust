@@ -1,12 +1,22 @@
 const Listing= require("../models/listing.js");
 
 module.exports.index= async (req, res) => {
-  let allListings = await Listing.find({});
-  res.render("listings/index.ejs", { allListings });
+  const categories = ['Trending', 'Rooms', 'Iconic cities', 'Hiking', 'Mountains', 'Castles', 'Amazing Pools', 'Camping', 'Farms', 'Domes', 'Boats'];
+  let { category } = req.query;
+  let allListings;
+  
+  if (category && category !== 'All') {
+    allListings = await Listing.find({ category: category });
+  } else {
+    allListings = await Listing.find({});
+  }
+  
+  res.render("listings/index.ejs", { allListings, categories, selectedCategory: category || 'All' });
 };
 
 module.exports.renderNewForm= (req, res) => {
-    res.render("listings/new.ejs", { listing: {} });
+    const categories = ['Trending', 'Rooms', 'Iconic cities', 'Hiking', 'Mountains', 'Castles', 'Amazing Pools', 'Camping', 'Farms', 'Domes', 'Boats'];
+    res.render("listings/new.ejs", { listing: {}, categories});
 };
 
 module.exports.showListing = async (req, res) => {
@@ -45,9 +55,10 @@ module.exports.renderEditForm = async (req, res) => {
       req.flash("error","Listing you requested for does not exist!");
       return res.redirect("/listings");
     }
+    const categories = ['Trending', 'Rooms', 'Iconic cities', 'Hiking', 'Mountains', 'Castles', 'Amazing Pools', 'Camping', 'Farms', 'Domes', 'Boats'];
     let originalImageUrl = listing.image.url;
     originalImageUrl=originalImageUrl.replace("/upload","/upload/w_250")
-    res.render("listings/edit.ejs", { listing, originalImageUrl });
+    res.render("listings/edit.ejs", { listing, originalImageUrl, categories });
 };
 
 module.exports.updateListing = async (req, res) => {
