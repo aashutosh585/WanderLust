@@ -40,12 +40,12 @@
   <div class="btns d-flex flex-column flex-md-row gap-2">
     <a
       href="/listings/<%= listing._id %>/edit"
-      class="btn btn-dark col-lg-1 col-md-2 col-sm-3 col-4 offset-lg-3 offset-md-2 offset-sm-1 edit-btn"
+      class="btn btn-dark col-lg-1 col-md-2 col-sm-3 offset-lg-3 offset-md-2 offset-sm-1 edit-btn"
       >Edit</a
     >
 
     <form action="/listings/<%= listing._id %>?_method=DELETE" method="post" class="d-inline">
-      <button class="btn btn-dark col-lg-1 col-md-2 col-sm-3 col-4">Delete</button>
+      <button class="btn btn-dark ">Delete</button>
     </form>
   </div>
 </div>
